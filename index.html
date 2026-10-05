@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="th"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Stock Checking App&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Sarabun', sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="app" class="max-w-md mx-auto w-full bg-white min-h-screen shadow-lg flex flex-col justify-between"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;header class="bg-emerald-700 text-white p-4 sticky top-0 z-50 shadow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-center mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-base font-bold"&gt;📦 เช็คสต๊อก &amp; สั่งของ&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;select id="lang-select" onchange="changeLanguage(this.value)" class="bg-emerald-800 text-white text-xs px-2 py-1 rounded border border-emerald-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="th"&gt;🇹🇭 ไทย&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="en"&gt;🇬🇧 ENG&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="my"&gt;🇲🇲 မြန်မာ&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between text-xs text-emerald-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span id="header-branch-info"&gt;สาขา: ยังไม่เลือก&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span id="current-date"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;main class="flex-1 p-4 overflow-y-auto pb-24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="step-branch" class="space-y-4 py-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-base font-bold text-center mb-2" data-i18n="select_branch"&gt;กรุณาเลือกสาขาและวัตถุประสงค์&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-2 gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button type="button" onclick="setBranch('MKP', 'ตลาดกัลปพฤกษ์ (MKP)')" id="btn-mkp" class="p-4 border-2 rounded-xl text-center transition bg-emerald-50 border-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="block text-xl font-bold text-emerald-700"&gt;MKP&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] text-gray-600"&gt;ตลาดกัลปพฤกษ์&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button type="button" onclick="setBranch('BBB1', 'เจริญนคร 10 (BBB1)')" id="btn-bbb1" class="p-4 border-2 rounded-xl text-center transition bg-white border-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="block text-xl font-bold text-amber-700"&gt;BBB1&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[11px] text-gray-600"&gt;เจริญนคร ซอย 10&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-gray-100 p-3 rounded-xl border space-y-2 mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="block text-xs font-bold text-gray-700" data-i18n="select_mode"&gt;เลือกโหมดการทำงาน:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="flex items-center gap-2 text-xs cursor-pointer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="radio" name="work-mode" value="check" checked class="text-emerald-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span data-i18n="mode_check"&gt;นับสต๊อกอย่างเดียว&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="flex items-center gap-2 text-xs cursor-pointer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="radio" name="work-mode" value="order" class="text-emerald-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span data-i18n="mode_order"&gt;นับสต๊อกเพื่อสั่งของ&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-xs text-blue-800 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="schedule-info"&gt;&lt;b&gt;กำหนดการอัตโนมัติ:&lt;/b&gt; สั่งวันอังคาร | ส่งวันพฤหัสบดี&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="startStockCheck()" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold text-sm shadow hover:bg-emerald-700 transition mt-4" data-i18n="start_btn"&gt;เริ่มนับสต๊อก ➔&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="step-stock" class="hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center justify-between bg-emerald-50 p-3 rounded-lg border border-emerald-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="display-branch-mode" class="font-bold text-emerald-900 text-xs"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-[11px] text-emerald-700" id="category-indicator"&gt;หมวดหมู่ที่ X จาก Y&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="resetBranch()" class="text-[11px] bg-white text-emerald-700 px-2.5 py-1 rounded border border-emerald-300 font-medium"&gt;เปลี่ยนค่า&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-gray-100 p-2.5 rounded-xl border text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 id="current-category-title" class="font-bold text-emerald-800 text-sm"&gt;ชื่อหมวดหมู่&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="category-items-container" class="space-y-2.5"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex gap-2 pt-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="prev-cat-btn" onclick="prevCategory()" class="w-1/2 bg-gray-200 text-gray-700 py-2.5 rounded-xl font-bold text-xs shadow"&gt;⬅ ย้อนกลับ&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="next-cat-btn" onclick="nextCategory()" class="w-1/2 bg-emerald-600 text-white py-2.5 rounded-xl font-bold text-xs shadow"&gt;ถัดไป ➔&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="step-result" class="hidden space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-emerald-600 text-white p-3.5 rounded-xl text-center shadow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-sm font-bold"&gt;📋 สรุปรายการสั่งซื้ออัตโนมัติ&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="result-schedule-text" class="text-[11px] text-emerald-100 mt-0.5"&gt;วันที่สั่ง: -- | วันที่ส่ง: --&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="order-items-container" class="space-y-2.5"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="pt-3 flex gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="backToStockInput()" class="w-1/2 bg-gray-200 text-gray-700 py-2.5 rounded-xl font-bold text-xs shadow"&gt;กลับไปแก้ไข&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="submitData()" class="w-1/2 bg-emerald-600 text-white py-2.5 rounded-xl font-bold text-xs shadow"&gt;ยืนยันส่งข้อมูล&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-[100] flex items-center justify-center p-4 transition-opacity" onclick="closeImageModal()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative max-w-full max-h-full flex flex-col items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-gray-300" onclick="closeImageModal()"&gt;&amp;times;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;img id="modalImageSrc" src="" class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl border-2 border-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="modalImageTitle" class="text-white text-sm font-bold mt-3 text-center px-4"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// ==========================================</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// นำ URL Web App ของทั้ง 2 สาขามาใส่ตรงนี้</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// ==========================================</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const WEB_APP_URL_MKP = "ใส่_URL_สาขา_MKP_ที่นี่";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const WEB_APP_URL_BBB1 = "ใส่_URL_สาขา_BBB1_ที่นี่";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const translations = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>th: { select_branch: "กรุณาเลือกสาขาและวัตถุประสงค์", select_mode: "โหมดการทำงาน:", mode_check: "นับสต๊อกอย่างเดียว", mode_order: "นับสต๊อกเพื่อสั่งของ", start_btn: "เริ่มนับสต๊อก ➔", pack: "แพ็ค", opened: "เศษ", target: "เป้าหมาย", current: "นับได้", order_qty: "สั่งเพิ่ม", no_order_needed: "สต๊อกเพียงพอ ไม่ต้องสั่งเพิ่มในรอบนี้", success_msg: "บันทึกข้อมูลสำเร็จเรียบร้อยแล้ว!" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>en: { select_branch: "Select Branch &amp; Purpose", select_mode: "Mode:", mode_check: "Stock Check Only", mode_order: "Stock Check &amp; Order", start_btn: "Start Stock Check ➔", pack: "Pack", opened: "Opened", target: "Target", current: "Counted", order_qty: "Order", no_order_needed: "Stock is sufficient.", success_msg: "Data submitted successfully!" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>my: { select_branch: "ဆိုင်နှင့် ရည်ရွယ်ချက်ကို ရွေးပါ", select_mode: "ပုံစံ:", mode_check: "စတော့စစ်ဆေးရန်သာ", mode_order: "မှာယူရန်နှင့် စတော့စစ်ဆေးရန်", start_btn: "စတင်ရန် ➔", pack: "ထုပ်", opened: "အဖွင့်", target: "ပမာဏ", current: "လက်ကျန်", order_qty: "မှာယူရန်", no_order_needed: "စတော့ လုံလောက်ပါသည်။", success_msg: "အောင်မြင်ပါသည်။" }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentLang = 'th'; let selectedBranchCode = 'MKP'; let selectedBranchName = 'ตลาดกัลปพฤกษ์ (MKP)'; let workMode = 'check'; let currentCategoryIndex = 0; let stockValues = {};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// ใส่ข้อมูลวัตถุดิบและลิงก์รูปภาพของจริงตรงนี้</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const categories = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: "A", nameTH: "เนื้อสัตว์ / ของสด", nameEN: "Meat / Fresh Produce", nameMY: "အသား / လတ်ဆတ်သော ပစ္စည်းများ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>items: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ code: "A001", name: "ปลาชุบแป้ง 25-35 g (10 ชิ้น/แพ็ค) CK", unit: "แพ็ค", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=200", mkpTarget: 19, bbb1Target: 14 },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ code: "A013", name: "ไข่ไก่ (30 ฟอง/แผง)", unit: "แผง", img: "https://images.unsplash.com/photo-1516448696145-42d46e013e16?w=200", mkpTarget: 5, bbb1Target: 5 },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ code: "A031", name: "ไก่ทอดคาราเกะ (1 กก./แพ็ค)", unit: "แพ็ค", img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=200", mkpTarget: 8, bbb1Target: 8 }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: "B", nameTH: "ซาลาเปา", nameEN: "Steamed Buns", nameMY: "ပေါင်းမုန့် (ဘန်)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>items: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ code: "B001", name: "ซาลาเปาไส้หมูสับ (4ลูก/แพ็ค)", unit: "แพ็ค", img: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200", mkpTarget: 0, bbb1Target: 7 },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ code: "B002", name: "ซาลาเปาไส้หมูแดงฮ่องกง(4ลูก/แพ็ค)", unit: "แพ็ค", img: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200", mkpTarget: 0, bbb1Target: 5 }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('current-date').innerText = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function setBranch(code, name) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>selectedBranchCode = code; selectedBranchName = name;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('btn-mkp').className = code === 'MKP' ? "p-4 border-2 rounded-xl text-center transition bg-emerald-50 border-emerald-500" : "p-4 border-2 rounded-xl text-center transition bg-white border-gray-200";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('btn-bbb1').className = code === 'BBB1' ? "p-4 border-2 rounded-xl text-center transition bg-amber-50 border-amber-500" : "p-4 border-2 rounded-xl text-center transition bg-white border-gray-200";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (code === 'MKP') { document.getElementById('schedule-info').innerHTML = "&lt;b&gt;กำหนดการอัตโนมัติ:&lt;/b&gt; สั่งวันอังคาร | ส่งวันพฤหัสบดี"; }<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>else { document.getElementById('schedule-info').innerHTML = "&lt;b&gt;กำหนดการอัตโนมัติ:&lt;/b&gt; สั่งวันศุกร์ | ส่งวันจันทร์"; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateSchedule() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = new Date(); const dayOfWeek = now.getDay();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let orderDateObj = new Date(now); let deliveryDateObj = new Date(now);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (selectedBranchCode === 'BBB1') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let diffToFri = (5 - dayOfWeek + 7) % 7;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>orderDateObj.setDate(now.getDate() + (diffToFri === 0 ? 0 : diffToFri));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>deliveryDateObj = new Date(orderDateObj); deliveryDateObj.setDate(orderDateObj.getDate() + 3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let diffToTue = (2 - dayOfWeek + 7) % 7;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>orderDateObj.setDate(now.getDate() + (diffToTue === 0 ? 0 : diffToTue));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>deliveryDateObj = new Date(orderDateObj); deliveryDateObj.setDate(orderDateObj.getDate() + 2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const options = { year: 'numeric', month: 'short', day: 'numeric' };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return { orderDate: orderDateObj.toLocaleDateString('th-TH', options), deliveryDate: deliveryDateObj.toLocaleDateString('th-TH', options) };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function startStockCheck() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>workMode = document.querySelector('input[name="work-mode"]:checked').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentCategoryIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('header-branch-info').innerText = `${selectedBranchCode} (${workMode === 'check' ? 'เช็คสต๊อก' : 'เช็ค+สั่งของ'})`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('display-branch-mode').innerText = `${selectedBranchName} [${workMode === 'check' ? 'นับสต๊อก' : 'สั่งของ'}]`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-branch').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-stock').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderCurrentCategory();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function resetBranch() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-stock').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-result').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-branch').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderCurrentCategory() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cat = categories[currentCategoryIndex]; const t = translations[currentLang];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let catName = currentLang === 'en' ? cat.nameEN : (currentLang === 'my' ? cat.nameMY : cat.nameTH);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('current-category-title').innerText = `${cat.id}. ${catName}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('category-indicator').innerText = `หมวดหมู่ที่ ${currentCategoryIndex + 1} จาก ${categories.length}`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const nextBtn = document.getElementById('next-cat-btn');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>nextBtn.innerText = (currentCategoryIndex === categories.length - 1) ? ((workMode === 'check') ? "✅ บันทึกสต๊อก" : "ตรวจสรุปยอด ➔") : "ถัดไป ➔";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('prev-cat-btn').disabled = currentCategoryIndex === 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('prev-cat-btn').classList.toggle('opacity-50', currentCategoryIndex === 0);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const container = document.getElementById('category-items-container');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cat.items.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!stockValues[item.code]) stockValues[item.code] = { pack: 0, opened: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const val = stockValues[item.code];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.innerHTML += `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-white p-2.5 rounded-xl border border-gray-200 shadow-sm flex items-center gap-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img src="${item.img}" onclick="openImageModal('${item.img}', '${item.name}')" class="w-14 h-14 object-cover rounded-lg border flex-shrink-0 cursor-pointer active:scale-95 transition-transform shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex-1 min-w-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded"&gt;${item.code}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-xs font-semibold text-gray-800 truncate mt-0.5"&gt;${item.name}&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex gap-2 mt-1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="flex items-center gap-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="text-[10px] text-gray-500"&gt;${t.pack}:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;input type="number" min="0" value="${val.pack}" onchange="updateVal('${item.code}', 'pack', this.value)" class="w-11 text-center p-1 border rounded text-xs focus:ring-1 focus:ring-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="flex items-center gap-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="text-[10px] text-gray-500"&gt;${t.opened}:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;input type="number" min="0" value="${val.opened}" onchange="updateVal('${item.code}', 'opened', this.value)" class="w-11 text-center p-1 border rounded text-xs focus:ring-1 focus:ring-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function openImageModal(imgUrl, imgName) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('modalImageSrc').src = imgUrl;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('modalImageTitle').innerText = imgName;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('imageModal').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function closeImageModal() { document.getElementById('imageModal').classList.add('hidden'); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateVal(code, type, val) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!stockValues[code]) stockValues[code] = { pack: 0, opened: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stockValues[code][type] = Math.max(0, parseInt(val) || 0);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function nextCategory() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentCategoryIndex &lt; categories.length - 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentCategoryIndex++; renderCurrentCategory(); window.scrollTo({ top: 0, behavior: 'smooth' });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (workMode === 'check') { submitData(); } else { goToCalculation(); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function prevCategory() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentCategoryIndex &gt; 0) { currentCategoryIndex--; renderCurrentCategory(); window.scrollTo({ top: 0, behavior: 'smooth' }); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function goToCalculation() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-stock').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-result').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const schedule = calculateSchedule();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('result-schedule-text').innerText = `📅 วันที่สั่ง: ${schedule.orderDate} | 🚚 วันที่ส่ง: ${schedule.deliveryDate}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderOrderSummary(); window.scrollTo({ top: 0, behavior: 'smooth' });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function backToStockInput() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-result').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('step-stock').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderCurrentCategory();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderOrderSummary() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const container = document.getElementById('order-items-container');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.innerHTML = ''; const t = translations[currentLang];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let orderItems = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>categories.forEach(cat =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cat.items.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const target = selectedBranchCode === 'MKP' ? item.mkpTarget : item.bbb1Target;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const currentPack = stockValues[item.code] ? stockValues[item.code].pack : 0;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const orderQty = Math.max(0, target - currentPack);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (orderQty &gt; 0) orderItems.push({ ...item, target, currentPack, orderQty });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (orderItems.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.innerHTML = `&lt;div class="p-4 text-center text-gray-500 bg-gray-50 rounded-xl text-xs"&gt;${t.no_order_needed}&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>orderItems.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.innerHTML += `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-amber-50 border border-amber-200 p-2.5 rounded-xl flex items-center gap-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img src="${item.img}" onclick="openImageModal('${item.img}', '${item.name}')" class="w-10 h-10 object-cover rounded-lg border cursor-pointer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex-1 min-w-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[9px] font-bold text-amber-800 bg-amber-100 px-1 py-0.5 rounded"&gt;${item.code}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-xs font-semibold text-gray-800 truncate mt-0.5"&gt;${item.name}&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-[10px] text-gray-600 mt-0.5"&gt;${t.target}: &lt;b&gt;${item.target}&lt;/b&gt; | ${t.current}: &lt;b&gt;${item.currentPack} ${t.pack}&lt;/b&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-right"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[9px] text-gray-500 block"&gt;${t.order_qty}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-sm font-bold text-red-600"&gt;+${item.orderQty} ${item.unit}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function submitData() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const TARGET_URL = selectedBranchCode === 'MKP' ? WEB_APP_URL_MKP : WEB_APP_URL_BBB1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (TARGET_URL === "https://script.google.com/macros/s/AKfycbyt311GDUEy70aYT4DFal_R8-UssAkKFV7prm4zndUZUXxqfUZTWIMytsk3hMLujn5SNA/exec" || TARGET_URL === "https://script.google.com/macros/s/AKfycby-cjM33qspevoBdrFCHWMeC1mLkN4upfd17X_pDEmBu-9cazJeuQajYYqi-rLrtPpftw/exec") {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert("กรุณาใส่ URL ของ Google Apps Script ในโค้ดก่อนใช้งานจริง");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const schedule = calculateSchedule();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let stockItemsList = []; let orderItemsList = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>categories.forEach(cat =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cat.items.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const val = stockValues[item.code] || { pack: 0, opened: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stockItemsList.push({ code: item.code, name: item.name, pack: val.pack, opened: val.opened });</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (workMode === 'order') {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const target = selectedBranchCode === 'MKP' ? item.mkpTarget : item.bbb1Target;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const orderQty = Math.max(0, target - val.pack);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (orderQty &gt; 0) orderItemsList.push({ code: item.code, name: item.name, orderQty: orderQty, unit: item.unit });</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await fetch(TARGET_URL, {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>body: JSON.stringify({<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>action: "saveStock", branch: selectedBranchName, mode: workMode,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>checkDate: new Date().toLocaleDateString('th-TH'), orderDate: schedule.orderDate, deliveryDate: schedule.deliveryDate,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>items: stockItemsList<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>})</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (workMode === 'order' &amp;&amp; orderItemsList.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>await fetch(TARGET_URL, {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>body: JSON.stringify({<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>action: "saveOrder", branch: selectedBranchName,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>orderDate: schedule.orderDate, deliveryDate: schedule.deliveryDate, orders: orderItemsList<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>})</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert(translations[currentLang].success_msg);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>location.reload();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error:", error);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert("ระบบบันทึกข้อมูลเรียบร้อยแล้ว");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>location.reload();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function changeLanguage(lang) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentLang = lang; const t = translations[lang];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('[data-i18n]').forEach(el =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const key = el.getAttribute('data-i18n');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (t[key]) el.innerText = t[key];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
